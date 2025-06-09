@@ -25,8 +25,8 @@ jobs:
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no paperspace@${{ secrets.SERVER_IP }} << 'EOF'
             source ~/.bashrc
             cd ~/JoeyRavenTest
-            npm ci
-            npm run build
-            pm2 restart JoeyRavenTest || pm2 start build/bin/server.js --name JoeyRavenTest
+            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm ci
+            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm run build
+            /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 restart JoeyRavenTest || /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 start build/bin/server.js --name JoeyRavenTest
           EOF
 
