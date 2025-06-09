@@ -24,7 +24,7 @@ jobs:
             set -e
             echo "Starting deployment on server..."
 
-            cd /var/www/adonis-web
+            cd /home/paperspace/JoeyRavenTest
             git pull origin main
             npm ci
             node ace build
