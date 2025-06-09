@@ -21,13 +21,12 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: SSH and deploy to server
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no paperspace@${{ secrets.SERVER_IP }} << 'EOF'
+            source ~/.bashrc
             cd ~/JoeyRavenTest
-            git pull origin main
             npm ci
             npm run build
             pm2 restart JoeyRavenTest || pm2 start build/bin/server.js --name JoeyRavenTest
           EOF
+
