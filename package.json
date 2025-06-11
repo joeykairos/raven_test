@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "node build/bin/server.js",
-    "build": "node ace build && tsc bin/server.ts --outDir build/bin --module ESNext --target ES2020 --moduleResolution Node && cp .env build/.env",
+    "build": "node scripts/build.js",
     "dev": "node ace serve --hmr",
     "test": "node ace test",
     "lint": "eslint .",
