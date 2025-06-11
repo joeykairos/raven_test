@@ -5,6 +5,8 @@ import path from 'path';
 const envArg = process.argv.find(arg => arg.startsWith('--env=')) || '--env=development';
 const env = envArg.split('=')[1];
 
+console.log('Received args:', process.argv);
+
 console.log(`Building for environment: ${env}`);
 
 try {
