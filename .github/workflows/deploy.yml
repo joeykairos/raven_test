@@ -26,8 +26,7 @@ jobs:
             source ~/.bashrc
             cd ~/JoeyRavenTest
             /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm ci
-            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm run build -- --env=development
-            /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 restart JoeyRavenTest || cd ~/JoeyRavenTest/build && /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 start bin/server.js --name JoeyRavenTest
+            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm run build -- --env=production
+            cd ~/JoeyRavenTest/build
+            /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 restart JoeyRavenTest || /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 start bin/server.js --name JoeyRavenTest
           EOF
-
-
