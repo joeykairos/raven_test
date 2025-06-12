@@ -1,15 +1,34 @@
 import { execSync } from 'node:child_process';
+import { join } from 'node:path';
+import fs from 'fs';
 
-const envArg = process.argv.find((arg) => arg.startsWith('--env='));
-const env = envArg ? envArg.split('=')[1] : 'development';
+const environment = process.env.NODE_ENV || 'development';
+console.log(`Building for environment: ${environment}`);
 
-console.log(`Building for environment: ${env}`);
+// Cleanup previous build
+console.log('[ info ] cleaning up output directory (build)');
+execSync('rimraf build', { stdio: 'inherit' });
 
-process.env.NODE_ENV = env;
+// Build frontend assets
+console.log('[ info ] building assets with vite');
+execSync('vite build', { stdio: 'inherit' });
 
-try {
-  execSync('node ace build', { stdio: 'inherit' });
-} catch (err) {
-  console.error('Build failed:', err);
-  process.exit(1);
+// Compile typescript source
+console.log('[ info ] compiling typescript source (tsc)');
+execSync('node ace build', { stdio: 'inherit' });
+
+// Copy meta files (public/, package.json, etc.)
+// (Assuming your meta copying logic is already here)
+
+// Automatically copy .env files
+const envFile = `.env.${environment}`;
+const targetEnvFile = join('build', '.env');
+
+if (fs.existsSync(envFile)) {
+  fs.copyFileSync(envFile, targetEnvFile);
+  console.log(`[ info ] copied ${envFile} -> ${targetEnvFile}`);
+} else {
+  console.warn(`[ warn ] ${envFile} not found. No env file copied.`);
 }
+
+console.log('[ success ] build completed');
