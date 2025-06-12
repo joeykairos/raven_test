@@ -24,10 +24,14 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no paperspace@${{ secrets.SERVER_IP }} << 'EOF'
             source ~/.bashrc
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 20.19.2
+
             cd ~/JoeyRavenTest
             git pull origin main
-            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm ci
-            /home/paperspace/.nvm/versions/node/v20.19.2/bin/npm run build -- --env=production
+            npm ci
+            npm run build -- --env=production
             cd ~/JoeyRavenTest/build
-            /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 restart JoeyRavenTest || /home/paperspace/.nvm/versions/node/v20.19.2/bin/pm2 start bin/server.js --name JoeyRavenTest
+            pm2 restart JoeyRavenTest || pm2 start bin/server.js --name JoeyRavenTest
           EOF
