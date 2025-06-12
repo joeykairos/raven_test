@@ -16,7 +16,7 @@ console.log(`Building for environment: ${environment}`);
 
 try {
   console.log('[ info ] cleaning up output directory (build)');
-  execSync('rimraf build', { stdio: 'inherit' });
+  execSync('npx rimraf build', { stdio: 'inherit' });
 
   console.log('[ info ] building assets with vite');
   execSync('vite build', { stdio: 'inherit' });
