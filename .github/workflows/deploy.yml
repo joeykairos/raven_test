@@ -31,7 +31,7 @@ jobs:
             cd ~/JoeyRavenTest
             git pull origin main
             npm ci
-            npm run build -- --env=production
+            npm run build -- --env=development
             cd ~/JoeyRavenTest/build
             pm2 restart JoeyRavenTest || pm2 start bin/server.js --name JoeyRavenTest
           EOF
